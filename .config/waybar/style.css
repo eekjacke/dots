@@ -1,0 +1,204 @@
+@import "mocha.css";
+
+* {
+    font-family: FontAwesome;
+    font-size: 16px;
+}
+
+window#waybar {
+    border: 2px solid @flamingo;
+    background: @base;
+    color: @flamingo;
+    opacity: 0.8;
+    margin-left: 8px;
+    border-radius: 10;
+}
+
+tooltip {
+    background: @base;
+    border: 1px solid @flamingo;
+}
+
+tooltip label {
+    color: @flamingo;
+}
+
+#user {
+    margin-left: 8px;
+    padding: 4px;
+}
+
+#workspaces {
+    color: @flamingo;
+    background-color: @surface0;
+    border-radius: 10;
+    margin: 8px;
+    border-width: 2px;
+    border-color: @overlay0;
+    border-style: solid;
+}
+
+#workspaces button {
+    background-color: @surface0;
+    color: @blue;
+}
+
+#workspaces button label {
+    font-size: 16px;
+}
+
+
+#workspaces button.empty {
+    color: @overlay0;
+}
+
+#workspaces button.active {
+    color: @green;
+}
+
+#custom-spotify {
+    color: @green;
+}
+
+.modules-center {
+    border: 0;
+}
+
+#clock {
+    font-size: 16;
+}
+
+.modules-right {
+    margin-right: 8px;
+    
+}
+
+#system {
+    border: 2px solid @overlay0;
+    border-radius: 10;
+    background-color: @surface0;
+    margin: 8px;
+}
+
+#systemd-failed-units {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#systemd-failed-units.degraded {
+    color: @red
+}
+
+#systemd-failed-units.ok {
+    color: @green
+}
+
+
+#custom-pacman {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#net {
+    border: 2px solid @overlay0;
+    border-radius: 10;
+    background-color: @surface0;
+    margin: 8px;
+}
+
+
+#network {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#custom-vpn {
+    font-size: 24;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#custom-vpn.active {
+    color: @green;
+}
+
+#custom-vpn.inactive {
+    color: @red;
+}
+
+#bluetooth {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#bluetooth.off {
+    color: @red;
+}
+
+#bluetooth.connected {
+    color: @green;
+}
+
+#audiovisual {
+    border: 2px solid @overlay0;
+    border-radius: 10;
+    background-color: @surface0;
+    margin: 8px;
+}
+
+#pulseaudio {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#backlight {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#hw {
+    border: 2px solid @overlay0;
+    border-radius: 10;
+    background-color: @surface0;
+    margin: 8px;
+}
+
+#cpu {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#memory {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#temperature {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+
+
+#battery {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#battery.charging {
+    color: @green;
+}
+
+@keyframes blink {
+    to {
+        color: @red;
+    }
+}
+
+#battery.warning:not(.charging) {
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}

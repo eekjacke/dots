@@ -1,0 +1,237 @@
+// -*- mode: jsonc -*-
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    "reload_style_on_change": true,
+
+    // Choose the order of the modules
+    "modules-left": [
+        "user",
+        "hyprland/workspaces",
+        "custom/spotify"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "group/system",
+        "group/net",
+        "group/audiovisual",
+        "group/hw"
+    ],
+
+    "user": {
+        "format": "↑ {work_d} d {work_H} h {work_M} m",
+        "interval": 60,
+        "height": 30,
+        "width": 30,
+        "icon": true,
+        "avatar": "/usr/share/archlinux/icons/archlinux-icon-crystal-32.svg"
+    },
+
+    "hyprland/workspaces": {
+        "format": "{name}: {icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "active": "",
+            "default": ""
+        },
+        "persistent-workspaces": {
+                "*": 4 // 4 workspaces by default on every monitor
+        }
+    },
+
+    "custom/spotify": {
+        "exec": "/usr/bin/python3 ~/coding/python/waybar_modules/mediaplayer.py --player spotify",
+        "format": "{}  ",
+        "return-type": "json",
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
+    },
+    
+    "clock": {
+        "format": "{:%H:%M}  ",
+        // "timezone": "America/New_York",
+        "tooltip": true,
+        "tooltip-format": "{:%Y-%m-%d}",
+        "format-alt": "{:%Y-%m-%d}",
+        "spacing": 10
+    },
+
+    "group/system": {
+        "orientation": "horizontal",
+        "modules": [
+            "systemd-failed-units",
+            "custom/pacman"
+        ]
+    },
+    "systemd-failed-units": {
+        "hide-on-ok": false, // Do not hide if there is zero failed units.
+        "format": "✗ {nr_failed}",
+        "format-ok": "✓",
+        "system": true, // Monitor failed systemwide units.
+        "user": false // Ignore failed user units.
+    },
+    "custom/pacman": {
+        "format": " {}",
+        "interval": 3600,                     // every hour
+        "exec": "~/go/bin/waybar-pacman",       // # of updates
+        "exec-if": "exit 0",                  // always run; consider advanced run conditions
+        //"on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+        "return-type": "json",
+        "tooltip": "true",
+        "tooltip-format": {},
+        "signal": 8
+    },
+    "group/net": {
+        "orientation": "horizontal",
+        "modules": [
+            "network",
+            "custom/vpn",
+            "bluetooth"
+        ]
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{essid}\n{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "custom/vpn": {
+        "interval": 5,                     // every second
+        "exec": "python3 ~/coding/python/scripts/check_vpn.py",       // # of updates
+        "exec-if": "exit 0",                  // always run; consider advanced run conditions
+        //"on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": "󰖂",
+        "tooltip": true
+        
+    },
+
+    "bluetooth": {
+        "format": "",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+
+    "group/audiovisual": {
+        "orientation": "horizontal",
+        "modules": [
+            "pulseaudio",
+            "backlight"
+        ]
+    },
+
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+
+    "group/hw": {
+        "orientation": "horizontal",
+        "modules": [
+            "cpu",
+            "memory",
+            "temperature",
+            "battery",
+            "battery#bat2"
+        ]
+    },
+    
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+
+    
+    "cava": {
+        "cava_config": "/home/jacob/.config/cava/config",
+        "framerate": 30,
+        "autosens": 1,
+        "sensitivity": 100,
+        "bars": 14,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pulse",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": false,
+        "noise_reduction": 0.77,
+        "input_delay": 2,
+        "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "actions": {
+                   "on-click-right": "mode"
+                   }
+    }
+}
