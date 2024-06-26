@@ -39,6 +39,10 @@
           "type": "memory",
           "format": "{/1}{-}{/}{/2}{-}{/}{} / {}"
       },
+      {
+        "type": "disk",
+        "showExternal": true
+      },
       "break",
       "colors"
   ]

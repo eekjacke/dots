@@ -10,6 +10,7 @@
     // Choose the order of the modules
     "modules-left": [
         "user",
+        "idle_inhibitor",
         "hyprland/workspaces",
         "custom/spotify"
     ],
@@ -47,6 +48,13 @@
                 "*": 4 // 4 workspaces by default on every monitor
         }
     },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },   
 
     "custom/spotify": {
         "exec": "/usr/bin/python3 ~/coding/python/waybar_modules/mediaplayer.py --player spotify",
@@ -82,10 +90,10 @@
     },
     "custom/pacman": {
         "format": " {}",
-        "interval": 3600,                     // every hour
+        "interval": 300,                     // every 5 min
         "exec": "~/go/bin/waybar-pacman",       // # of updates
         "exec-if": "exit 0",                  // always run; consider advanced run conditions
-        //"on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+        "on-click": "konsole -e '~/go/bin/list-pacman'; pkill -SIGRTMIN+8 waybar", // update system
         "return-type": "json",
         "tooltip": "true",
         "tooltip-format": {},
