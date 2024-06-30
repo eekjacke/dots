@@ -10,7 +10,7 @@ require('mason').setup({
 
 require('mason-lspconfig').setup({
     -- A list of servers to automatically install if they're not already installed
-    ensure_installed = { 'pylsp', 'lua_ls', 'rust_analyzer', 'gopls'},
+    ensure_installed = { 'pylsp', 'lua_ls', 'rust_analyzer', 'gopls', 'clangd'},
 })
 
 -- Set different settings for different languages' LSP
@@ -65,3 +65,6 @@ lspconfig.pylsp.setup({
 lspconfig.gopls.setup({
 
 })
+lspconfig.clangd.setup({})
+-- fish-lsp not available via Mason..
+require'lspconfig'.fish_lsp.setup{}

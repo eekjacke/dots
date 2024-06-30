@@ -58,6 +58,7 @@ require("lazy").setup({
             })
         end
     },
+    -- Navigation hints
     {
     "tris203/precognition.nvim",
         event = { "VeryLazy" },
@@ -85,6 +86,13 @@ require("lazy").setup({
         -- },
         }        
     },
+    -- Display function signatures while typing
+    {
+        "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
+        opts = {},
+        config = function(_, opts) require('lsp_signature').setup(opts) end
+    }
 })
 
 

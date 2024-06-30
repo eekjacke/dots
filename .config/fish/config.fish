@@ -7,7 +7,7 @@ if status is-interactive
     alias pacman 'pacman --color=auto'
     alias yay 'yay --color=auto'
     alias less 'less -N' #enable line number
-    alias ls='ls -G -Fh'
+    alias ls 'eza'
     alias logout='hyprctl dispatch exit' # logout hyprland
     #moving
     alias ... 'cd ../../'
