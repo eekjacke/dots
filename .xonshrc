@@ -1,0 +1,55 @@
+import getpass
+import json
+# XONSH WEBCONFIG START
+xontrib load coreutils
+# XONSH WEBCONFIG END
+
+$PATH.append("/home/jacob/.config/shell_scripts")
+$PATH.append("/usr/local/go/bin")
+class InteractiveShell():
+    def __init__(self):
+        # Start starship prompt
+        evalx($(starship init xonsh))
+
+        # Aliases
+        aliases['pacman'] = 'pacman --color=auto'
+        aliases['ls'] = 'eza'
+        aliases['logout'] = 'hyprctl dispatch exit'
+        aliases['...'] = 'cd ../../'
+        aliases['....'] = 'cd ../../../'
+
+        fastfetch
+
+    # TODO: use xthread once package is updated to 0.17.x...
+    @staticmethod
+    def wificonnect(ssid):
+        pw = getpass.getpass("Password: ")
+        print("connecting...")
+        nmcli device wifi connect @(ssid) password @(pw)
+
+
+# TODO - Add conn info to tooltip, add interactivity enable/disable etc..
+def check_vpn():
+    status = !(systemctl is-active --quiet wg-quick@integrity2-SE.service)
+    # if 0 exit code
+    if not status.returncode:
+        json_string = {
+            "text": "active",
+            "alt": "active",
+            "tooltip": "VPN active \n wg-quick@integrity2-SE.service",
+            "class": "active",
+            "percentage": ""
+        }
+    else:
+        json_string = {
+            "text": "inactive",
+            "alt": "inactive",
+            "tooltip": "VPN inactive",
+            "class": "inactive",
+            "percentage": ""
+        }
+    return json.dumps(json_string)
+
+
+if $XONSH_INTERACTIVE:
+    shell = InteractiveShell()

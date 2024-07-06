@@ -10,7 +10,7 @@ require('mason').setup({
 
 require('mason-lspconfig').setup({
     -- A list of servers to automatically install if they're not already installed
-    ensure_installed = { 'pylsp', 'lua_ls', 'rust_analyzer', 'gopls', 'clangd'},
+    ensure_installed = { 'pylsp', 'lua_ls', 'rust_analyzer', 'gopls', 'clangd', 'taplo'},
 })
 
 -- Set different settings for different languages' LSP
@@ -62,9 +62,29 @@ end
 lspconfig.pylsp.setup({
 	on_attach = on_attach,
 })
-lspconfig.gopls.setup({
-
+lspconfig.lua_ls.setup({
+	on_attach = on_attach,
 })
-lspconfig.clangd.setup({})
+
+lspconfig.gopls.setup({
+	on_attach = on_attach,
+})
+lspconfig.clangd.setup({
+	on_attach = on_attach,
+})
 -- fish-lsp not available via Mason..
 require'lspconfig'.fish_lsp.setup{}
+
+lspconfig.taplo.setup({
+	on_attach = on_attach,
+})
+
+-- Set *.xsh -> use pylsp
+
+vim.api.nvim_create_augroup('xsh', { clear = true })
+
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = '*.xsh',
+  command = 'set filetype=python',
+  group = 'xsh',
+})
