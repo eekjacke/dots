@@ -5,3 +5,4 @@ require('colorscheme')
 require('lsp')
 require('mini.pairs').setup()
 require('lsp_signature').setup()
+

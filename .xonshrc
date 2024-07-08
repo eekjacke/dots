@@ -6,6 +6,8 @@ xontrib load coreutils
 
 $PATH.append("/home/jacob/.config/shell_scripts")
 $PATH.append("/usr/local/go/bin")
+$PATH.append("/home/jacob/go/bin")
+
 class InteractiveShell():
     def __init__(self):
         # Start starship prompt
@@ -53,3 +55,7 @@ def check_vpn():
 
 if $XONSH_INTERACTIVE:
     shell = InteractiveShell()
+    $COMPLETIONS_CONFIRM=True
+    $(carapace _carapace)
+
+
